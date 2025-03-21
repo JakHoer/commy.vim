@@ -1,4 +1,4 @@
-if !has('nvim') || exists("g:loaded_commy")
+if exists("g:loaded_commy")
     finish
 endif
 let g:loaded_commy = 1
