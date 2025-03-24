@@ -10,7 +10,7 @@ function! CommyAdd(l1, l2) range
         let whitespace = matchstr(line, '^\s*')
         let line = trim(line, " \t", 1)
         if strlen(line) > 0
-            let newline = substitute(&commentstring, '%s', '\=printf("%s", line)', "")
+            let newline = printf(&commentstring, line)
             call setline(l, whitespace .. newline)
         endif
         let l += 1
