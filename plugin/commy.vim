@@ -3,21 +3,26 @@ if exists("g:loaded_commy")
 endif
 let g:loaded_commy = 1
 
-function! CommyAdd(l1, l2) range
+function! s:replace(string, pattern, replacement) abort
+    let parts = split(a:string, a:pattern, 1)
+    return join(parts, a:replacement)
+endfunction
+
+function! CommyAdd(l1, l2) abort range
     let l = a:l1
     while l <= a:l2
         let line = getline(l)
         let whitespace = matchstr(line, '^\s*')
         let line = trim(line, " \t", 1)
         if strlen(line) > 0
-            let newline = printf(&commentstring, line)
+            let newline = s:replace(&commentstring, "%s", line)
             call setline(l, whitespace .. newline)
         endif
         let l += 1
     endwhile
 endfunction
 
-function CommyRm(l1, l2) range
+function CommyRm(l1, l2) abort range
     let l = a:l1
     while l <= a:l2
         let line = getline(l)
